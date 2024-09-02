@@ -7,7 +7,7 @@ import { useWatchman, WatchmanProvider } from './watchman/WatchmanContext';
 import { Alert, AspectRatio, Avatar, Box, Card, Divider, Grid, Typography } from '@mui/joy';
 import { CalendarMonthOutlined, Check, Close, TimerOutlined, WarningOutlined } from '@mui/icons-material';
 import dayjs from 'dayjs';
-import fondo1 from "./assets/fondo2.jpg"
+import fondo1 from "./assets/fondo1.jpg"
 import { Howl } from 'howler';
 
 const WatchmanApp = () => {
@@ -27,7 +27,7 @@ const WatchmanApp = () => {
 
   return <Box paddingX={8} paddingY={4} position='relative'>
     <Box position='absolute' left={0} top={0} width='100vw' height='100vh' overflow='hidden' zIndex={-100}>
-      <AspectRatio ratio="16/9" objectFit='cover'>
+      <AspectRatio ratio="16/11" objectFit='cover'>
         <img src={fondo1} />
       </AspectRatio>
     </Box>
