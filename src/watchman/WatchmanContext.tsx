@@ -1,7 +1,7 @@
 // src/context/SocketContext.tsx
 import React, { createContext, useContext, useEffect, useMemo, useState } from 'react';
 import { useSocket } from '../socket/SocketContext';
-import { Member } from '../modules/common/types/members';
+import { Member } from './../modules/common/types/member';
 import dayjs from 'dayjs';
 
 interface WatchmanContextType {
