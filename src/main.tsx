@@ -91,9 +91,7 @@ const WatchmanApp = () => {
             <Box>
               <Typography color='success' level='h1'>Bienvenido de nuevo</Typography>
               <Typography level='h2'>
-                {
-                  `${identifiedMember?.fingerprint?.id ?? 0} - ${identifiedMember?.fullName ?? "N/A"}`
-                }
+                {identifiedMember?.fullName ?? "N/A"}
               </Typography>
             </Box>
           </Box>
