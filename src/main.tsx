@@ -27,7 +27,7 @@ const WatchmanApp = () => {
 
   return <Box paddingX={8} paddingY={4} position='relative'>
     <Box position='absolute' left={0} top={0} width='100vw' height='100vh' overflow='hidden' zIndex={-100}>
-      <AspectRatio ratio="16/11" objectFit='cover'>
+      <AspectRatio ratio="16/10.7" objectFit='cover'>
         <img src={fondo1} />
       </AspectRatio>
     </Box>
