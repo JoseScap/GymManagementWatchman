@@ -9,10 +9,11 @@ import { CalendarMonthOutlined, Check, Close, TimerOutlined, WarningOutlined } f
 import dayjs from 'dayjs';
 import fondo1 from "./assets/fondo1.jpg"
 import { Howl } from 'howler';
+import soundFile from './assets/notify.mp3'
 
 const WatchmanApp = () => {
   const sound = new Howl({
-    src: ['/notify.mp3'],
+    src: [soundFile],
     autoplay: false,
     volume: 1.0,
   });
@@ -20,7 +21,6 @@ const WatchmanApp = () => {
 
   useEffect(() => {
     if (identifiedMember != null && daysDifference != null && daysDifference <= 0) {
-      // Reproduce el sonido
       sound.play();
     }
   }, [daysDifference, identifiedMember, sound])
