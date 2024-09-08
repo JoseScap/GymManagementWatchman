@@ -17,13 +17,19 @@ const WatchmanApp = () => {
     autoplay: false,
     volume: 1.0,
   });
-  const { identifiedMember, daysDifference } = useWatchman()
+  const { identifiedMember, daysDifference, unknownMember } = useWatchman()
 
   useEffect(() => {
     if (identifiedMember != null && daysDifference != null && daysDifference <= 0) {
       sound.play();
     }
   }, [daysDifference, identifiedMember, sound])
+
+  useEffect(() => {
+    if (unknownMember) {
+      sound.play();
+    }
+  }, [unknownMember])
 
   return <Box paddingX={8} paddingY={4} position='relative'>
     <Box position='absolute' left={0} top={0} width='100vw' height='100vh' overflow='hidden' zIndex={-100}>
@@ -69,6 +75,21 @@ const WatchmanApp = () => {
         </Grid> 
       )
     }
+
+    {unknownMember && (
+      <Grid container rowSpacing={0} marginBottom={2}>
+        <Grid xs={8} xsOffset={2}>
+          <Alert
+            size='lg'
+            color='danger'
+            startDecorator={<WarningOutlined />}
+            style={{ fontSize: '25px' }}
+          >
+            Esta huella no está activa.
+          </Alert>
+        </Grid>
+      </Grid> 
+    )}
 
     {identifiedMember !== null && (
     <Grid container spacing={2}>

@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 
 interface WatchmanContextType {
     identifiedMember: Member | null
+    unknownMember: boolean
     daysDifference: number | null
 }
 
@@ -22,6 +23,7 @@ export const useWatchman = () => {
 export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const { socket } = useSocket();
   const [member, setMember] = useState<Member | null>(null);
+  const [unknownMember, setUnknownMember] = useState<boolean>(false);
 
   const daysDifference = useMemo<number | null>(() => {
     if (member === null) return null
@@ -39,9 +41,18 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
   useEffect(() => {
     if (socket) {
       console.log("Escuchar App:Identify")
-      socket.on("App:Identify", (data: Member) => {
-        setMember(data)
-      })
+      const listeners = socket.listeners("App:Identify");
+      if (listeners.length === 0) {
+        socket.on("App:Identify", (data: Member) => {
+          setMember(data)
+          if (data === null) {
+            setUnknownMember(true)
+            return null;
+          }
+
+          setUnknownMember(false)
+        })
+      }
     }
   }, [socket])
 
@@ -56,8 +67,19 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     }
   }, [member]);
 
+  useEffect(() => {
+    if (unknownMember) {
+      const timeoutId = setTimeout(() => {
+        setUnknownMember(false);
+      }, 10000);
+
+      // Cleanup timeout if the component unmounts or if member changes
+      return () => clearTimeout(timeoutId);
+    }
+  }, [unknownMember]);
+
   return (
-    <WatchmanContext.Provider value={{ identifiedMember: member, daysDifference }}>
+    <WatchmanContext.Provider value={{ identifiedMember: member, daysDifference, unknownMember }}>
       {children}
     </WatchmanContext.Provider>
   );
