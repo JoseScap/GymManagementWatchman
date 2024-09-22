@@ -30,11 +30,12 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     if (member.subscriptions === undefined) return null
     if (member.subscriptions.length === 0) return null
 
-    const target = dayjs(member.subscriptions[0].dateTo)
-    const today = dayjs()
-
-    const days = target.diff(today, 'day') + 1
-
+    const target = dayjs(member.subscriptions[0].dateTo).startOf('day')
+    const today = dayjs().startOf('day')
+    
+    const days = target.diff(today, 'day')
+    
+    console.log(target, today, days)
     return days
   }, [member])
 
