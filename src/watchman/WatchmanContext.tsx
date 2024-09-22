@@ -35,7 +35,6 @@ export const WatchmanProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     
     const days = target.diff(today, 'day')
     
-    console.log(target, today, days)
     return days
   }, [member])
 
