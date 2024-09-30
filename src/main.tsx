@@ -20,7 +20,7 @@ const WatchmanApp = () => {
   const { identifiedMember, daysDifference, unknownMember } = useWatchman()
 
   useEffect(() => {
-    if (identifiedMember != null && daysDifference != null && daysDifference < 0) {
+    if (identifiedMember != null && daysDifference != null && daysDifference <= 0) {
       sound.play();
     }
   }, [daysDifference, identifiedMember, sound])
@@ -43,7 +43,7 @@ const WatchmanApp = () => {
       <Typography level="h1" style={{ color: 'white' }}>Mi Socio</Typography>
     </Box>
     {
-      daysDifference != null && daysDifference < 0 && (
+      daysDifference != null && daysDifference <= 0 && (
         <Grid container rowSpacing={0} marginBottom={2}>
           <Grid xs={8} xsOffset={2}>
             <Alert
@@ -53,23 +53,6 @@ const WatchmanApp = () => {
               style={{ fontSize: '25px' }}
             >
               Tu suscripción vencio el dia {dayjs(identifiedMember!.subscriptions![0].dateTo).format('DD/MM/YYYY')}
-            </Alert>
-          </Grid>
-        </Grid> 
-      )
-    }
-
-    {
-      daysDifference != null && daysDifference == 0 && (
-        <Grid container rowSpacing={0} marginBottom={2}>
-          <Grid xs={8} xsOffset={2}>
-            <Alert
-              size='lg'
-              color='danger'
-              startDecorator={<WarningOutlined />}
-              style={{ fontSize: '25px' }}
-            >
-              Tu suscripción vence hoy!
             </Alert>
           </Grid>
         </Grid> 
